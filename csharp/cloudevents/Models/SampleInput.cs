@@ -11,22 +11,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using System.Text.Json.Serialization;
 
-namespace CloudEventsSample
+namespace CloudEventsSample.Models
 {
-    public class Program
+    public class SampleInput
     {
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
-
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureLogging(logging => { logging.AddConsole(); })
-                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
+        [JsonPropertyName("name")]
+        public string Name { get; set; }
     }
 }
