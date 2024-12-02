@@ -1,5 +1,12 @@
-# kn-func-cs
-C# Language Pack for Knative Functions
+# kn-func-lang
+This repo contains the following additional Language Packs for Knative Functions:
+- C# (csharp)
+
+Add this repo to kn func repositories by running 
+```sh
+func repository add `https://github.com/ngtw-j/kn-func-cs`
+```
+This will give kn func access to all the "runtime" language pack in the repo.
 
 ## Summary
 A Knative Function Language Pack provides runtime and invocation capabilities for user-provided Function code.
