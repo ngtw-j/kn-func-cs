@@ -8,6 +8,10 @@ func repository add `https://github.com/ngtw-j/kn-func-cs`
 ```
 This will give kn func access to all the "runtime" language pack in the repo.
 
+By default, kn func will use the http template. A different template such as cloudevents can be specified by using the -t flag. See `func create -h` for more info. 
+
+The cloudevents template is not yet working.
+
 ## Summary
 A Knative Function Language Pack provides runtime and invocation capabilities for user-provided Function code.
 
@@ -24,3 +28,23 @@ A Knative Function Language Pack consists, broadly, of two conceptual components
 
 - Build and runtime metadata provided via its directory structure and, optionally, a manifest.yaml file, all of which support the Function's lifecycle described below.
 - Project templates for Functions and supporting code. This is the function developer's UX - a Function project, which in most cases should look just like any other project of its type.
+
+
+## Stacks
+ What Paketo stacks are available?
+
+The Paketo project releases several stacks. We currently officially support Ubuntu 22.04 (Jammy Jellyfish). Tiny, Base, and Full stack variants differ in the number of packages installed in the OS layer. The available stacks, from smallest to largest, are:
+
+    Jammy Tiny(opens in a new tab)
+        Build image based on Ubuntu 22.04 Jammy Jellyfish; run image comparable to distroless(opens in a new tab)
+        Ideal for most Golang apps, Java GraalVM Native Images(opens in a new tab)
+    Jammy Base(opens in a new tab)
+        Based on Ubuntu 22.04 Jammy Jellyfish
+        Ideal for Java and .NET Core apps, Golang apps that require C libraries, Node.js, Python, Ruby, and JavaScript front end apps without many native extensions
+    Jammy Full(opens in a new tab)
+        Based on Ubuntu 22.04 Jammy Jellyfish
+        Ideal for PHP apps, Node.js, Python, Ruby, and JavaScript front end apps with native extensions
+
+In general, it is a best practice to select the smallest stack that supports the apps you are trying to build.
+
+Taken from https://paketo.io/docs/concepts/stacks/

@@ -4,7 +4,3 @@ schema_version: 0.0.1 # The version for manifest.yaml schema
 # in the UX, and its version
 name: aaaas-lang-pack
 version: 0.0.1
-
-# additional fields for non standard language packs
-builderImages:
-  pack: gcr.io/paketo-buildpacks/builder:base
