@@ -1,10 +1,10 @@
 # sufficient for dotnet apps
 builderImages:
-  pack: paketobuildpacks/builder-jammy-base
+  pack: paketobuildpacks/builder-jammy-base:latest
 
 # include for now? idk if can remove
 buildpacks:
-  - paketo-buildpacks/dotnet-core   
+  - paketo-buildpacks/dotnet-core:latest
 
 # these are the same as defaults
 healthEndpoints:
