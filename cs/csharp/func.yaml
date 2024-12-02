@@ -1,0 +1,4 @@
+name: knative-csharp-function
+runtime: csharp
+entrypoint: dotnet template.dll
+image: <your-docker-image-here>
