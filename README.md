@@ -4,7 +4,7 @@ This repo contains the following additional Language Packs for Knative Functions
 
 Add this repo to kn func repositories by running 
 ```sh
-func repository add `https://github.com/ngtw-j/kn-func-cs`
+func repository add aaaas https://github.com/ngtw-j/kn-func-lang
 ```
 This will give kn func access to all the "runtime" language pack in the repo.
 
