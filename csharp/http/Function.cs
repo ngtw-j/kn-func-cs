@@ -22,6 +22,8 @@ public interface IContext {
 
 var builder = WebApplication.CreateBuilder(args);
 
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+var url = $"http://0.0.0.0:{port}";
 // Add services to the container.
 builder.Services.AddEndpointsApiExplorer();
 
@@ -32,8 +34,15 @@ app.UseHttpsRedirection();
 // TODO get cloudevent params
 // TODO write boilerplate to return a cloudevent
 
-app.MapGet("/weatherforecast", () =>
-{
+app.MapGet("/", () =>
+{   
+    /*
+	 * YOUR CODE HERE
+	 *
+	 * A HTTP Response will eventually get returned, but you can return anything like a string in the lambda function.
+     * 
+	 */
+     
     var forecast =  Enumerable.Range(1, 5).Select(index =>
         new WeatherForecast
         (
@@ -44,8 +53,7 @@ app.MapGet("/weatherforecast", () =>
         .ToArray();
     return forecast;
 })
-.WithName("GetWeatherForecast")
-.WithOpenApi();
+
 
 app.Run();
 
