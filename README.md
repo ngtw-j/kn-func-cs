@@ -12,6 +12,12 @@ By default, kn func will use the http template. A different template such as clo
 
 The cloudevents template is copied from this [sample](https://github.com/knative/docs/tree/main/code-samples/serving/cloudevents/cloudevents-dotnet)
 
+NOTE: Use the following sh syntax!
+```sh
+func create --repository https://github.com/ngtw-j/kn-func-lang --language=csharp --template=http
+```
+
+
 ## Summary
 A Knative Function Language Pack provides runtime and invocation capabilities for user-provided Function code.
 
