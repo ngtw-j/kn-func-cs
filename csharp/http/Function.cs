@@ -14,4 +14,18 @@ app.MapPost("/", async (HttpRequest request) =>
     return Results.Ok(body);  // Return the body as the response
 });
 
+// Health checks
+app.MapGet("/health/liveness", () =>
+{
+    // Return a 200 OK status to indicate that the service is alive
+    return Results.Ok("Liveness check successful");
+});
+
+app.MapGet("/health/readiness", () =>
+{
+    // You can perform more complex readiness checks here if needed.
+    // For example, check if a database connection is available.
+    return Results.Ok("Readiness check successful");
+});
+
 app.Run();

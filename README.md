@@ -10,7 +10,7 @@ This will give kn func access to all the "runtime" language pack in the repo.
 
 By default, kn func will use the http template. A different template such as cloudevents can be specified by using the --template flag.
 
-The http template is a basic web server that echoes the request body.
+The http template is a basic web server that echoes the request body. Use Postman to send and receive raw body.
 The cloudevents template is copied from this [sample](https://github.com/knative/docs/tree/main/code-samples/serving/cloudevents/cloudevents-dotnet),
 modified to support net8.0.
 
