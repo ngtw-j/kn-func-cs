@@ -1,0 +1,5 @@
+curl -X POST <URL> 
+-H "Ce-Type: com.example.event" 
+-H "Ce-Source: /my-source" -d '{"message": "Hello World"}' 
+-H "Ce-Specversion: 1.0" 
+-H "Ce-Id: 123"

@@ -1,32 +1,28 @@
-/*
-Copyright 2020 The Knative Authors
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-    https://www.apache.org/licenses/LICENSE-2.0
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
+﻿// Copyright (c) Cloud Native Foundation.
+// Licensed under the Apache 2.0 license.
+// See LICENSE file in the project root for full license information.
 
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using CloudNative.CloudEvents.AspNetCoreSample;
+using CloudNative.CloudEvents.NewtonsoftJson;
 
-namespace CloudEventsSample
-{
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
+var builder = WebApplication.CreateBuilder(args);
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureLogging(logging => { logging.AddConsole(); })
-                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
-    }
-}
+builder.Services.AddControllers(opts =>
+    opts.InputFormatters.Insert(0, new CloudEventJsonInputFormatter(new JsonEventFormatter())));
+
+// Register the health check services
+builder.Services.AddHealthChecks();  // This registers the health check services
+
+var app = builder.Build();
+
+// Health checks
+app.MapHealthChecks("/health/liveness");
+app.MapHealthChecks("/health/readiness");
+
+app.MapControllers();
+
+app.Run();
+
+// Generated `Program` class when using top-level statements
+// is internal by default. Make this `public` here for tests.
+public partial class Program { }

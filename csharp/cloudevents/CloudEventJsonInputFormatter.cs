@@ -6,9 +6,7 @@ using CloudNative.CloudEvents.AspNetCore;
 using CloudNative.CloudEvents.Core;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Net.Http.Headers;
-using System;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace CloudNative.CloudEvents.AspNetCoreSample
 {
