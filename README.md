@@ -8,13 +8,26 @@ func repository add aaaas https://github.com/ngtw-j/kn-func-lang
 ```
 This will give kn func access to all the "runtime" language pack in the repo.
 
-By default, kn func will use the http template. A different template such as cloudevents can be specified by using the -t flag. See `func create -h` for more info. 
+By default, kn func will use the http template. A different template such as cloudevents can be specified by using the --template flag.
 
-The cloudevents template is copied from this [sample](https://github.com/knative/docs/tree/main/code-samples/serving/cloudevents/cloudevents-dotnet)
+The http template is a basic web server that echoes the request body.
+The cloudevents template is copied from this [sample](https://github.com/knative/docs/tree/main/code-samples/serving/cloudevents/cloudevents-dotnet),
+modified to support net8.0.
 
 NOTE: Use the following sh syntax!
 ```sh
+# http
 func create --repository https://github.com/ngtw-j/kn-func-lang --language=csharp --template=http
+# cloudevents
+func create --repository https://github.com/ngtw-j/kn-func-lang --language=csharp --template=cloudevents
+
+# local testing
+dotnet build
+dotnet run
+dotnet publish
+
+func build -u -v --registry=ghcr.io/ngtw-j/kn-func-lang
+func deploy -v --registry=ghcr.io/ngtw-j/kn-func-lang
 ```
 
 
