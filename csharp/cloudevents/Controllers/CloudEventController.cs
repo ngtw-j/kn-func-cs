@@ -1,10 +1,7 @@
-﻿// Copyright (c) Cloud Native Foundation.
-// Licensed under the Apache 2.0 license.
-// See LICENSE file in the project root for full license information.
-
+﻿using CloudNative.CloudEvents.AspNetCore;
+using CloudNative.CloudEvents.Http;
 using CloudNative.CloudEvents.NewtonsoftJson;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
 using System.Text;
 
 namespace CloudNative.CloudEvents.AspNetCoreSample.Controllers
@@ -15,24 +12,12 @@ namespace CloudNative.CloudEvents.AspNetCoreSample.Controllers
     {
         private readonly ILogger<CloudEventController> _logger = logger;
         private static readonly CloudEventFormatter formatter = new JsonEventFormatter(); 
-        [HttpPost("")]
-        public ActionResult<IEnumerable<string>> ReceiveCloudEvent([FromBody] CloudEvent cloudEvent)
-        {
-            var attributeMap = new JObject();
-            foreach (var (attribute, value) in cloudEvent.GetPopulatedAttributes())
-            {
-                attributeMap[attribute.Name] = attribute.Format(value);
-            }
-            string msg = $"Received event with ID {cloudEvent.Id}, attributes: {attributeMap}";
-            _logger.LogInformation(msg);
-            return Ok(msg);
-        }
 
         /// <summary>
         /// Generates a CloudEvent in "structured mode", where all CloudEvent information is
         /// included within the body of the response.
         /// </summary>
-        [HttpGet("")]
+        [HttpGet]
         public ActionResult<string> GenerateCloudEvent()
         {
             var evt = new CloudEvent
@@ -60,7 +45,24 @@ namespace CloudNative.CloudEvents.AspNetCoreSample.Controllers
             // (In "binary mode", the content type is the content type of the data, and headers
             // indicate that it's a CloudEvent.)
             result.ContentTypes.Add(contentType.MediaType);
+            _logger.LogInformation("Generated CloudEvent");
             return result;
         }
+
+        [HttpPost]
+        public async Task<IActionResult> HandleCloudEvent()
+        {
+            /*
+            * YOUR CODE HERE
+            *
+            */
+            _logger.LogInformation("Received POST request");
+            CloudEvent incomingCE = await Request.ToCloudEventAsync(formatter);
+            _logger.LogInformation($"Incoming CloudEvent: {incomingCE.Id}");
+            CloudEvent outgoingCE = incomingCE;
+            return Ok(outgoingCE);  
+        }
+
+ 
     }
 }

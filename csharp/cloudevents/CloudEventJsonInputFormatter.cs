@@ -1,9 +1,6 @@
-﻿// Copyright (c) Cloud Native Foundation.
-// Licensed under the Apache 2.0 license.
-// See LICENSE file in the project root for full license information.
-
-using CloudNative.CloudEvents.AspNetCore;
+﻿using CloudNative.CloudEvents.AspNetCore;
 using CloudNative.CloudEvents.Core;
+
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Net.Http.Headers;
 using System.Text;
@@ -17,15 +14,16 @@ namespace CloudNative.CloudEvents.AspNetCoreSample
     /// <summary>
     /// A <see cref="TextInputFormatter"/> that parses HTTP requests into CloudEvents.
     /// </summary>
-    public class CloudEventJsonInputFormatter : TextInputFormatter
+    public class CloudEventJsonInputFormatter(ILogger<CloudEventJsonInputFormatter> logger) : TextInputFormatter
     {
+        private readonly ILogger<CloudEventJsonInputFormatter> _logger = logger;
         private readonly CloudEventFormatter _formatter;
 
         /// <summary>
         /// Constructs a new instance that uses the given formatter for deserialization.
         /// </summary>
         /// <param name="formatter"></param>
-        public CloudEventJsonInputFormatter(CloudEventFormatter formatter)
+        public CloudEventJsonInputFormatter()
         {
             _formatter = Validation.CheckNotNull(formatter, nameof(formatter));
             SupportedMediaTypes.Add(MediaTypeHeaderValue.Parse("application/json"));
