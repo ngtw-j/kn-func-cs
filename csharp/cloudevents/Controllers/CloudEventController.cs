@@ -9,13 +9,13 @@ using System.Text;
 
 namespace CloudNative.CloudEvents.AspNetCoreSample.Controllers
 {
-    [Route("api/events")]
+    [Route("")]
     [ApiController]
-    public class CloudEventController : ControllerBase
+    public class CloudEventController(ILogger<CloudEventController> logger) : ControllerBase
     {
-        private static readonly CloudEventFormatter formatter = new JsonEventFormatter();
-
-        [HttpPost("receive")]
+        private readonly ILogger<CloudEventController> _logger = logger;
+        private static readonly CloudEventFormatter formatter = new JsonEventFormatter(); 
+        [HttpPost("")]
         public ActionResult<IEnumerable<string>> ReceiveCloudEvent([FromBody] CloudEvent cloudEvent)
         {
             var attributeMap = new JObject();
@@ -23,14 +23,16 @@ namespace CloudNative.CloudEvents.AspNetCoreSample.Controllers
             {
                 attributeMap[attribute.Name] = attribute.Format(value);
             }
-            return Ok($"Received event with ID {cloudEvent.Id}, attributes: {attributeMap}");
+            string msg = $"Received event with ID {cloudEvent.Id}, attributes: {attributeMap}";
+            _logger.LogInformation(msg);
+            return Ok(msg);
         }
 
         /// <summary>
         /// Generates a CloudEvent in "structured mode", where all CloudEvent information is
         /// included within the body of the response.
         /// </summary>
-        [HttpGet("generate")]
+        [HttpGet("")]
         public ActionResult<string> GenerateCloudEvent()
         {
             var evt = new CloudEvent
