@@ -1,6 +1,6 @@
 @HostAddress = https://localhost:5001
 
-POST {{HostAddress}}/api/events/receive
+POST {{HostAddress}}/
 Content-Type: application/json
 CE-SpecVersion: 1.0
 CE-Type: "com.example.myevent"
@@ -13,4 +13,4 @@ CE-Id: "c457b7c5-c038-4be9-98b9-938cb64a4fbf"
 
 ###
 
-GET {{HostAddress}}/api/events/generate
+GET {{HostAddress}}/

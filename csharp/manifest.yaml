@@ -2,7 +2,6 @@
 builderImages:
   pack: ghcr.io/knative/builder-jammy-base:latest
 
-# TODO include for now? idk if can remove
 buildpacks:
   - gcr.io/paketo-buildpacks/dotnet-core
 
