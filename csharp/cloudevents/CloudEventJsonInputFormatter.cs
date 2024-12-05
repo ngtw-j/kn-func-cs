@@ -1,4 +1,9 @@
-﻿using CloudNative.CloudEvents.AspNetCore;
+﻿// Copyright (c) Cloud Native Foundation.
+// Licensed under the Apache 2.0 license.
+// See LICENSE file in the project root for full license information.
+// Modified by ngtw@pcs-security.com, Dec 2024
+
+using CloudNative.CloudEvents.AspNetCore;
 using CloudNative.CloudEvents.Core;
 
 using Microsoft.AspNetCore.Mvc.Formatters;

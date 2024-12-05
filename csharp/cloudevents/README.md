@@ -23,7 +23,6 @@ multiple events are batched into a single HTTP request or response body using
 an [event format](#14-event-formats) that supports batching
 [structured-mode messages][ce-message].
 
-[`appsettings.json`](appsettings.json), [`appsettings.Development.json`](`appsettings.Development.json`) and the Properties folder aren't necessary for building the function, but are there for you to test your code locally.
 
 ## Development
 
