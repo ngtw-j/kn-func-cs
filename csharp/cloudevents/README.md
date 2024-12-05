@@ -1,7 +1,7 @@
 # CSharp CloudEvent Function
 
-Welcome to your new CSharp Function! The boilerplate function code can be found in
-[`Program.cs`](Program.cs). This Function responds to CloudEvent requests.
+Welcome to your new CSharp Function! The boilerplate function code can be found in ReceiveCloudEvent function in 
+[`CloudEventController.cs`](Controllers/CloudEventController.cs). This Function responds to CloudEvent requests.
 
 The CloudEvents specification defines three content modes for transferring events: structured, binary and batch. The HTTP protocol binding supports all three content modes. 
 

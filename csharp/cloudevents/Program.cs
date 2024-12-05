@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.HttpLogging;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// builder.Services.AddControllers(opts =>
-//     opts.InputFormatters.Insert(0, new CloudEventJsonInputFormatter(new JsonEventFormatter())));
-builder.Services.AddControllers();
+builder.Services.AddControllers(opts =>
+    opts.InputFormatters.Insert(0, new CloudEventJsonInputFormatter(new JsonEventFormatter())));
+// builder.Services.AddControllers();
 
 // Register the health check services
 builder.Services.AddHealthChecks();  // This registers the health check services

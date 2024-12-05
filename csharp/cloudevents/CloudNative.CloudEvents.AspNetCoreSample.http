@@ -11,6 +11,38 @@ CE-Id: "c457b7c5-c038-4be9-98b9-938cb64a4fbf"
     "message": "Hello world!"
 }
 
+### Structured (everything is in request body)
+
+POST {{HostAddress}}/
+Content-Type: application/json
+
+{
+  "specversion": "1.0",
+  "id": "12345",
+  "type": "com.example.event",
+  "source": "https://example.com/my-source",
+  "time": "2024-12-03T12:00:00Z",
+  "datacontenttype": "application/json",
+  "data": {
+    "message": "This is the actual event data.",
+    "otherField": "Another piece of event data"
+  }
+}
+
+### Binary (even attributes in headers, data in request body as-is)
+
+POST {{HostAddress}}/
+Content-Type: application/json
+CE-SpecVersion: 1.0
+CE-Type: "com.example.myevent"
+CE-Source: "urn:example-com:mysource:abc"
+CE-Id: "c457b7c5-c038-4be9-98b9-938cb64a4fbf"
+CE-DataContentType: "binary"
+
+
+001020
+
+
 ###
 
 GET {{HostAddress}}/

@@ -2,6 +2,7 @@
 using CloudNative.CloudEvents.Http;
 using CloudNative.CloudEvents.NewtonsoftJson;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using System.Text;
 
 namespace CloudNative.CloudEvents.AspNetCoreSample.Controllers
@@ -50,19 +51,26 @@ namespace CloudNative.CloudEvents.AspNetCoreSample.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> HandleCloudEvent()
-        {
+    
+
+        public ActionResult<IEnumerable<string>> ReceiveCloudEvent([FromBody] CloudEvent cloudEvent)
+        {   
             /*
             * YOUR CODE HERE
             *
+            * You can read the data payload and populated attributes using the method shown below.
+            * This function must return a 200 OK response, ideally with a similar CloudEvent object.
+            * The structured mode response is shown above in the GenerateCloudEvent method.
+            * 
             */
             _logger.LogInformation("Received POST request");
-            CloudEvent incomingCE = await Request.ToCloudEventAsync(formatter);
-            _logger.LogInformation($"Incoming CloudEvent: {incomingCE.Id}");
-            CloudEvent outgoingCE = incomingCE;
-            return Ok(outgoingCE);  
+            var attributeMap = new JObject();
+            foreach (var (attribute, value) in cloudEvent.GetPopulatedAttributes())
+            {
+                attributeMap[attribute.Name] = attribute.Format(value);
+            }
+            return Ok($"Received event with ID {cloudEvent.Id}, attributes: {attributeMap}");
         }
 
- 
     }
 }

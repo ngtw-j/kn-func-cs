@@ -14,16 +14,16 @@ namespace CloudNative.CloudEvents.AspNetCoreSample
     /// <summary>
     /// A <see cref="TextInputFormatter"/> that parses HTTP requests into CloudEvents.
     /// </summary>
-    public class CloudEventJsonInputFormatter(ILogger<CloudEventJsonInputFormatter> logger) : TextInputFormatter
+    public class CloudEventJsonInputFormatter : TextInputFormatter
     {
-        private readonly ILogger<CloudEventJsonInputFormatter> _logger = logger;
+        // private readonly ILogger<CloudEventJsonInputFormatter> _logger = logger;
         private readonly CloudEventFormatter _formatter;
 
         /// <summary>
         /// Constructs a new instance that uses the given formatter for deserialization.
         /// </summary>
         /// <param name="formatter"></param>
-        public CloudEventJsonInputFormatter()
+        public CloudEventJsonInputFormatter(CloudEventFormatter formatter)
         {
             _formatter = Validation.CheckNotNull(formatter, nameof(formatter));
             SupportedMediaTypes.Add(MediaTypeHeaderValue.Parse("application/json"));
