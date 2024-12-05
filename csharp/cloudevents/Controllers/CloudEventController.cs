@@ -1,23 +1,30 @@
-﻿// Copyright (c) Cloud Native Foundation.
-// Licensed under the Apache 2.0 license.
-// See LICENSE file in the project root for full license information.
-
-using CloudNative.CloudEvents.NewtonsoftJson;
+﻿using CloudNative.CloudEvents.NewtonsoftJson;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using System.Text;
 
 namespace CloudNative.CloudEvents.AspNetCoreSample.Controllers
 {
-    [Route("api/events")]
+    [Route("")]
     [ApiController]
-    public class CloudEventController : ControllerBase
+    public class CloudEventController(ILogger<CloudEventController> logger) : ControllerBase
     {
-        private static readonly CloudEventFormatter formatter = new JsonEventFormatter();
+        private readonly ILogger<CloudEventController> _logger = logger;
+        private static readonly CloudEventFormatter formatter = new JsonEventFormatter(); 
 
-        [HttpPost("receive")]
+
+        [HttpPost]
         public ActionResult<IEnumerable<string>> ReceiveCloudEvent([FromBody] CloudEvent cloudEvent)
-        {
+        {   
+            /*
+            * YOUR CODE HERE
+            *
+            * You can read the data payload and populated attributes using the method shown below.
+            * This function must return a 200 OK response, ideally with a similar CloudEvent object.
+            * The structured mode response is shown above in the GenerateCloudEvent method.
+            * 
+            */
+            _logger.LogInformation("Received POST request");
             var attributeMap = new JObject();
             foreach (var (attribute, value) in cloudEvent.GetPopulatedAttributes())
             {
@@ -30,7 +37,7 @@ namespace CloudNative.CloudEvents.AspNetCoreSample.Controllers
         /// Generates a CloudEvent in "structured mode", where all CloudEvent information is
         /// included within the body of the response.
         /// </summary>
-        [HttpGet("generate")]
+        [HttpGet]
         public ActionResult<string> GenerateCloudEvent()
         {
             var evt = new CloudEvent
@@ -58,6 +65,7 @@ namespace CloudNative.CloudEvents.AspNetCoreSample.Controllers
             // (In "binary mode", the content type is the content type of the data, and headers
             // indicate that it's a CloudEvent.)
             result.ContentTypes.Add(contentType.MediaType);
+            _logger.LogInformation("Generated CloudEvent");
             return result;
         }
     }
