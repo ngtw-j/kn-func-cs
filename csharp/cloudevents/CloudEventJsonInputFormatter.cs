@@ -16,7 +16,6 @@ namespace CloudNative.CloudEvents.AspNetCoreSample
     /// </summary>
     public class CloudEventJsonInputFormatter : TextInputFormatter
     {
-        // private readonly ILogger<CloudEventJsonInputFormatter> _logger = logger;
         private readonly CloudEventFormatter _formatter;
 
         /// <summary>

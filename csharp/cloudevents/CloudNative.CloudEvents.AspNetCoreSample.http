@@ -29,20 +29,6 @@ Content-Type: application/json
   }
 }
 
-### Binary (even attributes in headers, data in request body as-is)
-
-POST {{HostAddress}}/
-Content-Type: application/json
-CE-SpecVersion: 1.0
-CE-Type: "com.example.myevent"
-CE-Source: "urn:example-com:mysource:abc"
-CE-Id: "c457b7c5-c038-4be9-98b9-938cb64a4fbf"
-CE-DataContentType: "binary"
-
-
-001020
-
-
 ###
 
 GET {{HostAddress}}/

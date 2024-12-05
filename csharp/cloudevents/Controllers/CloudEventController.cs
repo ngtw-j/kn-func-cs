@@ -1,6 +1,4 @@
-﻿using CloudNative.CloudEvents.AspNetCore;
-using CloudNative.CloudEvents.Http;
-using CloudNative.CloudEvents.NewtonsoftJson;
+﻿using CloudNative.CloudEvents.NewtonsoftJson;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using System.Text;
@@ -13,6 +11,27 @@ namespace CloudNative.CloudEvents.AspNetCoreSample.Controllers
     {
         private readonly ILogger<CloudEventController> _logger = logger;
         private static readonly CloudEventFormatter formatter = new JsonEventFormatter(); 
+
+
+        [HttpPost]
+        public ActionResult<IEnumerable<string>> ReceiveCloudEvent([FromBody] CloudEvent cloudEvent)
+        {   
+            /*
+            * YOUR CODE HERE
+            *
+            * You can read the data payload and populated attributes using the method shown below.
+            * This function must return a 200 OK response, ideally with a similar CloudEvent object.
+            * The structured mode response is shown above in the GenerateCloudEvent method.
+            * 
+            */
+            _logger.LogInformation("Received POST request");
+            var attributeMap = new JObject();
+            foreach (var (attribute, value) in cloudEvent.GetPopulatedAttributes())
+            {
+                attributeMap[attribute.Name] = attribute.Format(value);
+            }
+            return Ok($"Received event with ID {cloudEvent.Id}, attributes: {attributeMap}");
+        }
 
         /// <summary>
         /// Generates a CloudEvent in "structured mode", where all CloudEvent information is
@@ -49,28 +68,5 @@ namespace CloudNative.CloudEvents.AspNetCoreSample.Controllers
             _logger.LogInformation("Generated CloudEvent");
             return result;
         }
-
-        [HttpPost]
-    
-
-        public ActionResult<IEnumerable<string>> ReceiveCloudEvent([FromBody] CloudEvent cloudEvent)
-        {   
-            /*
-            * YOUR CODE HERE
-            *
-            * You can read the data payload and populated attributes using the method shown below.
-            * This function must return a 200 OK response, ideally with a similar CloudEvent object.
-            * The structured mode response is shown above in the GenerateCloudEvent method.
-            * 
-            */
-            _logger.LogInformation("Received POST request");
-            var attributeMap = new JObject();
-            foreach (var (attribute, value) in cloudEvent.GetPopulatedAttributes())
-            {
-                attributeMap[attribute.Name] = attribute.Format(value);
-            }
-            return Ok($"Received event with ID {cloudEvent.Id}, attributes: {attributeMap}");
-        }
-
     }
 }
